@@ -145,7 +145,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     /* ==========================================================================
-       Contact Form Handling
+       Contact Form Handling (Web3Forms Integration)
        ========================================================================== */
     const contactForm = document.getElementById('contact-form');
     const formStatus = document.getElementById('form-status');
@@ -167,21 +167,64 @@ document.addEventListener('DOMContentLoaded', () => {
             const emailInput = document.getElementById('form-email').value;
             const messageInput = document.getElementById('form-message').value;
 
-            // Mock API sending
-            setTimeout(() => {
+            // Form validation
+            if (!nameInput.trim() || !emailInput.trim() || !messageInput.trim()) {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalBtnHtml;
+                formStatus.textContent = "Please fill in all fields correctly.";
+                formStatus.className = 'form-status error';
+                return;
+            }
+
+            const accessKeyElement = document.getElementById('web3forms-key');
+            const accessKey = accessKeyElement ? accessKeyElement.value : '';
+
+            // Guard for unset Web3Forms Access Key
+            if (!accessKey || accessKey === 'YOUR_ACCESS_KEY_HERE') {
+                setTimeout(() => {
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = originalBtnHtml;
+                    formStatus.textContent = "Form verified! To receive emails, please add your Web3Forms Access Key in index.html.";
+                    formStatus.className = 'form-status error';
+                }, 1000);
+                return;
+            }
+
+            // Web3Forms API Call
+            fetch('https://api.web3forms.com/submit', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify({
+                    access_key: accessKey,
+                    name: nameInput,
+                    email: emailInput,
+                    message: messageInput
+                })
+            })
+            .then(async (response) => {
+                const json = await response.json();
                 submitBtn.disabled = false;
                 submitBtn.innerHTML = originalBtnHtml;
                 
-                // Form feedback validation
-                if (nameInput.trim() && emailInput.trim() && messageInput.trim()) {
+                if (response.status === 200) {
                     formStatus.textContent = "Thank you! Your message has been sent successfully.";
-                    formStatus.classList.add('success');
+                    formStatus.className = 'form-status success';
                     contactForm.reset();
                 } else {
-                    formStatus.textContent = "Please fill in all fields correctly.";
-                    formStatus.classList.add('error');
+                    formStatus.textContent = json.message || "Failed to send message.";
+                    formStatus.className = 'form-status error';
                 }
-            }, 1500); // 1.5 second simulated latency
+            })
+            .catch(error => {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalBtnHtml;
+                formStatus.textContent = "Something went wrong! Please try again later.";
+                formStatus.className = 'form-status error';
+                console.error("Web3Forms error:", error);
+            });
         });
     }
 
