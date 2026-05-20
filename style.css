@@ -81,6 +81,41 @@ a {
     transition: var(--transition);
 }
 
+.text-link {
+    color: var(--primary);
+    position: relative;
+    font-weight: 500;
+}
+
+.text-link::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: var(--primary-gradient);
+    transition: var(--transition);
+}
+
+.text-link:hover {
+    color: var(--primary-alt);
+}
+
+.text-link:hover::after {
+    width: 100%;
+}
+
+.project-title-link {
+    display: inline-block;
+    color: var(--text-main);
+    transition: var(--transition);
+}
+
+.project-title-link:hover {
+    color: var(--primary);
+}
+
 ul {
     list-style: none;
 }
