@@ -792,29 +792,101 @@ h1, h2, h3, h4 {
     border: 1px solid rgba(0, 242, 254, 0.15);
 }
 
-.project-links {
+.project-meta-badge {
+    background: rgba(167, 139, 250, 0.08);
+    border: 1px solid rgba(167, 139, 250, 0.2);
+    color: var(--secondary);
+    padding: 0.3rem 0.7rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    border-radius: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.project-key-details {
+    margin-top: 0.2rem;
+    margin-bottom: 1.5rem;
+    font-size: 0.88rem;
+    border-left: 2px solid var(--primary);
+    padding-left: 1rem;
+}
+
+.project-key-details strong {
+    color: var(--primary);
+    display: block;
+    margin-bottom: 0.4rem;
+    font-family: var(--font-headings);
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+}
+
+.project-key-details ul {
+    padding-left: 0;
+    list-style: none;
+    color: var(--text-muted);
+}
+
+.project-key-details li {
+    margin-bottom: 0.5rem;
+    position: relative;
+    padding-left: 1.2rem;
+    line-height: 1.4;
+}
+
+.project-key-details li::before {
+    content: '▪';
+    position: absolute;
+    left: 0;
+    color: var(--primary);
+}
+
+.project-card-actions {
     display: flex;
     gap: 1rem;
+    margin-top: 1.5rem;
+    border-top: 1px solid var(--border-color);
+    padding-top: 1.2rem;
 }
 
-.project-links a {
-    font-size: 1.25rem;
-    color: var(--text-muted);
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.02);
-    border: 1px solid var(--border-color);
-    display: flex;
+.btn-card-primary {
+    background: var(--primary-gradient);
+    color: var(--text-inverse);
+    padding: 0.6rem 1.2rem;
+    font-size: 0.85rem;
+    font-weight: 700;
+    border-radius: var(--radius-sm);
+    display: inline-flex;
     align-items: center;
-    justify-content: center;
+    gap: 8px;
+    font-family: var(--font-headings);
 }
 
-.project-links a:hover {
-    color: var(--primary);
-    border-color: var(--primary);
-    background: rgba(0, 242, 254, 0.05);
-    transform: scale(1.1);
+.btn-card-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0, 242, 254, 0.25);
+}
+
+.btn-card-secondary {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border-color);
+    color: var(--text-main);
+    padding: 0.6rem 1.2rem;
+    font-size: 0.85rem;
+    font-weight: 700;
+    border-radius: var(--radius-sm);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-headings);
+}
+
+.btn-card-secondary:hover {
+    background: rgba(255, 255, 255, 0.07);
+    border-color: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
 }
 
 .project-body {
