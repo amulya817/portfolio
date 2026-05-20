@@ -57,9 +57,8 @@ def get_compiled_html():
     with open("script.js", "r", encoding="utf-8") as f:
         js = f.read()
         
-    # Convert image and PDF to base64
+    # Convert image to base64
     img_b64 = get_base64_file("profile.jpeg")
-    pdf_b64 = get_base64_file("Amulya_B_Resume.pdf")
     
     # Inline CSS & JS into the HTML
     html = html.replace('<link rel="stylesheet" href="style.css">', f'<style>\n{css}\n</style>')
@@ -67,7 +66,6 @@ def get_compiled_html():
     
     # Replace relative asset links with Base64 Data URIs
     html = html.replace('src="profile.jpeg"', f'src="data:image/jpeg;base64,{img_b64}"')
-    html = html.replace('href="Amulya_B_Resume.pdf"', f'href="data:application/pdf;base64,{pdf_b64}"')
     
     return html
 
